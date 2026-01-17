@@ -108,5 +108,19 @@ return {
         config = function()
             require('hex').setup()
           end
+    },
+    {
+        'karb94/neoscroll.nvim',
+        config = function ()
+            require('neoscroll').setup({
+                easing_function = "quadratic",
+                hide_cursor = true,
+                stop_eof = true,
+                respect_scrolloff = true,
+                cursor_scrolls_alone = true,
+            })
+            vim.keymap.set('n', 'j', 'gj', { noremap = true, silent = true })
+            vim.keymap.set('n', 'k', 'gk', { noremap = true, silent = true })
+        end
     }
 }
