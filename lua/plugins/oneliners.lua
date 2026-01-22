@@ -8,14 +8,14 @@ return {
         end,
         opts = {}
     },
-    {
+    --[[ {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         opts = {
             check_ts = true,
             fast_wrap = {},
         },
-    },
+    }, --]]
     {
         "rmagatti/auto-session",
         config = function()

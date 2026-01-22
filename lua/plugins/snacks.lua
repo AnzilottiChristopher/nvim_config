@@ -27,11 +27,14 @@ return {
             zen = {
                 enabled = true,
                 win = {
-                    style = "minimal",
-                    width = 0.8,
-                    height = 0.8,
+                    style = "zen",
+                    width = 0.9,
+                    height = 0.9,
                 },
-                backdrop = 0.85,
+                backdrop = {
+                    transparent = false,
+                    blend = 95,
+                },
             },
             scroll = { enabled = false },
             scope = { enabled = false },
