@@ -19,29 +19,29 @@ return {
     {
         "rmagatti/auto-session",
         config = function()
-            require("auto-session").setup{
+            require("auto-session").setup {
                 log_level = "error",
-                auto_session_suppress_dirs = {"~/", "~/Downloads/"},
+                auto_session_suppress_dirs = { "~/", "~/Downloads/" },
             }
         end
     },
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function ()
+        config = function()
             require('lualine').setup {
                 option = {
                     theme = 'auto',
                     component_separators = '|',
                     section_separators = { left = '', right = '' },
                 }
-        }
+            }
         end
     },
     {
         'folke/noice.nvim',
         dependencies = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' },
-        config = function ()
+        config = function()
             require('noice').setup()
         end
     },
@@ -107,11 +107,11 @@ return {
         'RaafatTurki/hex.nvim',
         config = function()
             require('hex').setup()
-          end
+        end
     },
     {
         'karb94/neoscroll.nvim',
-        config = function ()
+        config = function()
             require('neoscroll').setup({
                 easing_function = "quadratic",
                 hide_cursor = true,
@@ -121,6 +121,23 @@ return {
             })
             vim.keymap.set('n', 'j', 'gj', { noremap = true, silent = true })
             vim.keymap.set('n', 'k', 'gk', { noremap = true, silent = true })
+        end
+    },
+    {
+        "esmuellert/codediff.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        cmd = "CodeDiff",
+        config = function()
+            require("codediff").setup({
+                conflict = {
+                    accept_incoming = "<leader>ct",
+                    accept_current  = "<leader>co",
+                    accept_both     = "<leader>cb",
+                    discard         = "<leader>cx",
+                    next_conflict   = "]x",
+                    prev_conflict   = "[x",
+                },
+            })
         end
     }
 }
