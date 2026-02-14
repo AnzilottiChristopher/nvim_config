@@ -22,7 +22,7 @@ return {
         })
         -- Setup mason-lspconfig with handlers
         require("mason-lspconfig").setup({
-            ensure_installed = { "rust_analyzer", "lua_ls" },
+            ensure_installed = { "rust_analyzer", "lua_ls", "pyright" },
             automatic_installation = true,
             handlers = {
                 -- Default handler for all servers
@@ -69,6 +69,20 @@ return {
                                 },
                                 telemetry = {
                                     enable = false,
+                                },
+                            },
+                        },
+                    })
+                end,
+                ["pyright"] = function()
+                    require("lspconfig").pyright.setup({
+                        settings = {
+                            python = {
+                                analysis = {
+                                    autoSearchPaths = true,
+                                    diagnosticMode = "workspace",
+                                    useLibraryCodeForTypes = true,
+                                    typeCheckingMode = "basic",
                                 },
                             },
                         },
