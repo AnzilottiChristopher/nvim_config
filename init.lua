@@ -10,5 +10,5 @@ require('config.keybinds')
 require('config.lazy')
 require('config.diagnostics')
 
-vim.cmd.colorscheme("material-ocean")
+vim.cmd.colorscheme("material_ocean2")
 vim.opt.shadafile = vim.fn.stdpath("data") .. "/shada/main.shada"
