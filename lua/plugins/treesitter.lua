@@ -6,7 +6,7 @@ return {
         indent = { enable = true },
         autotag = { enable = true },
         ensure_installed = {
-            "lua", "c", "rust", "bash", "json", "toml",
+            "lua", "c", "rust", "bash", "json", "toml", "python", "javascript", "typescript",
         },
         auto_install = false,
     },
