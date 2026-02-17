@@ -1,6 +1,6 @@
 vim.cmd("highlight clear")
 vim.cmd("set termguicolors")
-vim.g.colors_name = "material-ocean"
+vim.g.colors_name = "material_ocean2"
 
 local c = {
   bg      = "#07080d",
