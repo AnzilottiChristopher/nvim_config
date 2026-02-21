@@ -22,7 +22,7 @@ return {
         })
         -- Setup mason-lspconfig with handlers
         require("mason-lspconfig").setup({
-            ensure_installed = { "rust_analyzer", "lua_ls", "pyright" },
+            ensure_installed = { "rust_analyzer", "lua_ls", "pyright", "ts_ls", "html", "cssls", "eslint" },
             automatic_installation = true,
             handlers = {
                 -- Default handler for all servers
@@ -86,6 +86,36 @@ return {
                                 },
                             },
                         },
+                    })
+                end,
+                -- TypeScript, JavaScript --
+                ["ts_ls"] = function()
+                    require("lspconfig").ts_ls.setup({
+                        settings = {
+                            typescript = { inlayHints = { includeInlayParameterNameHints = "all " } },
+                            javascript = { inlayHints = { includeInlayParameterNameHints = "all " } },
+                        },
+                    })
+                end,
+                -- HTML -- 
+                ["html"] = function ()
+                    require("lspconfig").html.setup({
+                        filetypes = { "html" },
+                    })
+                end,
+                -- CSS -- 
+                ["cssls"] = function()
+                    require("lspconfig").cssls.setup({})
+                end,
+                -- ESLINT --
+                ["eslint"] = function()
+                    require("lspconfig").eslint.setup({
+                        on_attach = function(_, bufnr)
+                            vim.api.nvim_create_autocmd("BufWritePre", {
+                                buffer = bufnr,
+                                command = "EslintFixAll",
+                            })
+                        end,
                     })
                 end,
             },
