@@ -5,7 +5,7 @@ return {
     config = function()
         local jdtls = require("jdtls")
 
-        local home = os.getenv("~")
+        local home = vim.fn.expand("~")
         local mason_path = home .. "/AppData/Local/nvim-data/mason/packages/jdtls"
 
         -- Unique data dir per project, so different projects don't clash
