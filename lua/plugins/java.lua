@@ -5,12 +5,12 @@ return {
     config = function()
         local jdtls = require("jdtls")
 
-        local home = os.getenv("HOME")
-        local mason_path = home .. "/.local/share/nvim/mason/packages/jdtls"
+        local home = os.getenv("~")
+        local mason_path = home .. "/AppData/Local/nvim-data/mason/packages/jdtls"
 
         -- Unique data dir per project, so different projects don't clash
         local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-        local workspace_dir = home .. "/.local/share/nvim/jdtls-workspace/" .. project_name
+        local workspace_dir = home .. "/AppData/Local/nvim-data/jdtls-workspace/" .. project_name
 
         local config = {
             cmd = {
