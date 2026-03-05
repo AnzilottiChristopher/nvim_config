@@ -154,6 +154,11 @@ return {
                     css = { "prettier" },
                     json = { "prettier" },
                 },
+                formatters = {
+                    prettier = {
+                        prepand_args = { "--tab-width", "4", "--semi" },
+                    },
+                },
                 format_on_save = {
                     timeout_ms = 500,
                     lsp_fallback = true,
