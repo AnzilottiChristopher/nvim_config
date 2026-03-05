@@ -18,7 +18,7 @@ return {
                 "-Declipse.application=org.eclipse.jdt.ls.core.id1",
                 "-Dosgi.bundles.defaultStartLevel=4",
                 "-Declipse.product=org.eclipse.jdt.ls.core.product",
-                "-Dlog.level=ALL",
+                "-Dlog.level=ERROR",
                 "-Xmx1g",
                 "--add-modules=ALL-SYSTEM",
                 "--add-opens", "java.base/java.util=ALL-UNNAMED",
@@ -43,6 +43,15 @@ return {
                         },
                     },
                 },
+            },
+
+            handlers = {
+                ["language/status"] = function()
+
+                end,
+                ["$/progress"] = function()
+
+                end,
             },
 
             on_attach = function(_, bufnr)

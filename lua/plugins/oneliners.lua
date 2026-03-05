@@ -42,7 +42,26 @@ return {
         'folke/noice.nvim',
         dependencies = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' },
         config = function()
-            require('noice').setup()
+            require('noice').setup({
+                routes = {
+                    {
+                        filter = {
+                            event = "notify",
+                            kind = "progress",
+                            find = "validate",
+                        },
+                        opts = { skip = true },
+                    },
+                    {
+                        filter = {
+                            event = "notify",
+                            kind = "progress",
+                            find = "publish",
+                        },
+                        opts = { skip = true },
+                    },
+                },
+            })
         end
     },
     {
