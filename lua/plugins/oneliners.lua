@@ -46,17 +46,8 @@ return {
                 routes = {
                     {
                         filter = {
-                            event = "notify",
+                            event = "lsp",
                             kind = "progress",
-                            find = "validate",
-                        },
-                        opts = { skip = true },
-                    },
-                    {
-                        filter = {
-                            event = "notify",
-                            kind = "progress",
-                            find = "publish",
                         },
                         opts = { skip = true },
                     },
