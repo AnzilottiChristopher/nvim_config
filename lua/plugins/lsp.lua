@@ -7,22 +7,37 @@ return {
         "williamboman/mason-lspconfig.nvim",
     },
     config = function()
+        -- Docker Compose filetype detection
+        vim.filetype.add({
+            filename = {
+                ["docker-compose.yml"] = "yaml.docker-compose",
+                ["docker-compose.yaml"] = "yaml.docker-compose",
+                ["compose.yml"] = "yaml.docker-compose",
+                ["compose.yaml"] = "yaml.docker-compose",
+            },
+        })
+
         -- Setup Mason first
         require("mason").setup()
 
-
         -- Auto-enable inlay hints when lsp attaches
         vim.api.nvim_create_autocmd("LspAttach", {
-            callback = function (args)
+            callback = function(args)
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
                 if client and client.server_capabilities.inlayHintProvider then
                     vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
                 end
             end,
         })
+
         -- Setup mason-lspconfig with handlers
         require("mason-lspconfig").setup({
-            ensure_installed = { "rust_analyzer", "lua_ls", "pyright", "ts_ls", "html", "cssls", "eslint" },
+            ensure_installed = {
+                "rust_analyzer", "lua_ls", "pyright", "ts_ls",
+                "html", "cssls", "eslint",
+                "dockerls",
+                "docker_compose_language_service",
+            },
             automatic_installation = true,
             handlers = {
                 -- Default handler for all servers
@@ -74,6 +89,7 @@ return {
                         },
                     })
                 end,
+                -- Pyright
                 ["pyright"] = function()
                     require("lspconfig").pyright.setup({
                         settings = {
@@ -88,26 +104,26 @@ return {
                         },
                     })
                 end,
-                -- TypeScript, JavaScript --
+                -- TypeScript, JavaScript
                 ["ts_ls"] = function()
                     require("lspconfig").ts_ls.setup({
                         settings = {
-                            typescript = { inlayHints = { includeInlayParameterNameHints = "all " } },
-                            javascript = { inlayHints = { includeInlayParameterNameHints = "all " } },
+                            typescript = { inlayHints = { includeInlayParameterNameHints = "all" } },
+                            javascript = { inlayHints = { includeInlayParameterNameHints = "all" } },
                         },
                     })
                 end,
-                -- HTML -- 
-                ["html"] = function ()
+                -- HTML
+                ["html"] = function()
                     require("lspconfig").html.setup({
                         filetypes = { "html" },
                     })
                 end,
-                -- CSS -- 
+                -- CSS
                 ["cssls"] = function()
                     require("lspconfig").cssls.setup({})
                 end,
-                -- ESLINT --
+                -- ESLint
                 ["eslint"] = function()
                     require("lspconfig").eslint.setup({
                         on_attach = function(_, bufnr)
@@ -116,6 +132,32 @@ return {
                                 command = "EslintFixAll",
                             })
                         end,
+                    })
+                end,
+                -- Docker
+                ["dockerls"] = function()
+                    require("lspconfig").dockerls.setup({
+                        settings = {
+                            docker = {
+                                languageserver = {
+                                    formatter = {
+                                        ignoreMultilineInstructions = true,
+                                    },
+                                },
+                            },
+                        },
+                    })
+                end,
+                -- Docker Compose
+                ["docker_compose_language_service"] = function()
+                    require("lspconfig").docker_compose_language_service.setup({
+                        filetypes = { "yaml.docker-compose" },
+                        root_dir = require("lspconfig.util").root_pattern(
+                            "docker-compose.yml",
+                            "docker-compose.yaml",
+                            "compose.yml",
+                            "compose.yaml"
+                        ),
                     })
                 end,
             },
