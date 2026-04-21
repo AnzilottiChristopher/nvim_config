@@ -38,12 +38,9 @@ return {
                 { type = "material", style = "darker" },
                 { type = "material", style = "oceanic" },
                 { type = "material", style = "palenight" },
-                { type = "material", style = "lighter" },
                 -- Koda variants
                 { type = "koda",     style = "koda-dark" },
                 { type = "koda",     style = "koda-moss" },
-                { type = "koda",     style = "koda-glade" },
-                { type = "koda",     style = "koda-light" },
             }
 
             -- Track current index in a module-level variable
@@ -65,8 +62,8 @@ return {
                 _G._theme_index = 1 -- deep ocean
                 apply_theme(themes[1])
             else
-                _G._theme_index = 6 -- koda-dark
-                apply_theme(themes[6])
+                _G._theme_index = 5 -- koda-dark
+                apply_theme(themes[5])
             end
 
             -- Cycle through all themes with <leader>tt
