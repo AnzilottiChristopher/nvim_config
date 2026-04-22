@@ -66,6 +66,25 @@ return {
                 apply_theme(themes[5])
             end
 
+            -- Auto-switch based on time while nvim is open
+            local timer = vim.loop.new_timer()
+            timer:start(60000, 60000, vim.schedule_wrap(function()
+                local current_hour = tonumber(os.date("%H"))
+                local current = vim.g.colors_name
+
+                if current_hour < 12 then
+                    if current ~= "material" then
+                        _G._theme_index = 1
+                        apply_theme(themes[1])
+                    end
+                else
+                    if not current:find("koda") then
+                        _G._theme_index = 5
+                        apply_theme(themes[5])
+                    end
+                end
+            end))
+
             -- Cycle through all themes with <leader>tt
             vim.keymap.set("n", "<leader>tt", function()
                 _G._theme_index = (_G._theme_index % #themes) + 1
