@@ -37,6 +37,7 @@ return {
                 "html", "cssls", "eslint",
                 "dockerls",
                 "docker_compose_language_service",
+                "clangd",
             },
             automatic_installation = true,
             handlers = {
@@ -161,6 +162,11 @@ return {
                     })
                 end,
             },
+            ["clangd"] = function()
+                require("lspconfig").clangd.setup({
+                    filetypes = { "c", "cpp", "objc", "objcpp" },
+                })
+            end
         })
     end,
 }
