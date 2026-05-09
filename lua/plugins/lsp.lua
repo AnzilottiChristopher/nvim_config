@@ -161,12 +161,19 @@ return {
                         ),
                     })
                 end,
+                ["clangd"] = function()
+                    require("lspconfig").clangd.setup({
+                        cmd = { "clangd", "--enable-config" },
+                        filetypes = { "c", "cpp", "objc", "objcpp" },
+                        root_dir = require("lspconfig.util").root_pattern(
+                            "compile_commands.json",
+                            "build/compile_commands.json",
+                            "CMakeLists.txt",
+                            ".git"
+                        ),
+                    })
+                end
             },
-            ["clangd"] = function()
-                require("lspconfig").clangd.setup({
-                    filetypes = { "c", "cpp", "objc", "objcpp" },
-                })
-            end
         })
     end,
 }

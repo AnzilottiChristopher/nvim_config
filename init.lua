@@ -9,6 +9,9 @@ require('config.options')
 require('config.keybinds')
 require('config.lazy')
 require('config.diagnostics')
+require('config.commands.skel')
+require('config.commands.editing')
+require('config.commands.extract')
 
 -- vim.cmd.colorscheme("material")
 vim.opt.shadafile = vim.fn.stdpath("data") .. "/shada/main.shada"
