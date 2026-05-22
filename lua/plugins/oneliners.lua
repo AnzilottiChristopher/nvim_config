@@ -115,6 +115,7 @@ return {
     },
     {
         'RaafatTurki/hex.nvim',
+        ft = { "xxd", "bin", "hex" },
         config = function()
             require('hex').setup()
         end
@@ -169,10 +170,12 @@ return {
                         prepand_args = { "--tab-width", "4", "--semi" },
                     },
                 },
-                format_on_save = {
-                    timeout_ms = 500,
-                    lsp_fallback = true,
-                },
+                format_on_save = function(bufnr)
+                    local ft = vim.bo[bufnr].filetype
+                    local exclude = { java = true, kotlin = true }
+                    if exclude[ft] then return nil end
+                    return { timeout_ms = 500, lsp_fallback = true }
+                end,
             })
         end,
     },
