@@ -8,7 +8,7 @@ return {
         "hrsh7th/cmp-path",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        "onsails/lspkind.nvim",  -- Add icons
+        "onsails/lspkind.nvim", -- Add icons
     },
     config = function()
         local cmp = require("cmp")
@@ -65,13 +65,13 @@ return {
                 end, { 'i', 's' }),
             }),
             sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
+                { name = 'nvim_lsp', keyword_length = 1, max_item_count = 20 },
                 { name = 'luasnip' },
                 { name = 'buffer' },
                 { name = 'path' },
             }),
-           -- experimental = {
-              --  ghost_text = true,
+            -- experimental = {
+            --  ghost_text = true,
             --},
         })
     end,
