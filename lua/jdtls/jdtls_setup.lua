@@ -53,8 +53,8 @@ function M:setup()
             local jdtls = require("jdtls")
             local opts = { buffer = bufnr, silent = true }
             vim.keymap.set("n", "<leader>co", jdtls.organize_imports, opts)
-            vim.keymap.set("n", "<leader>crv", jdtls.extract_variable, opts)
-            vim.keymap.set("n", "<leader>crm", jdtls.extract_method, opts)
+            vim.keymap.set({ "n", "v" }, "<leader>crv", jdtls.extract_variable, opts)
+            vim.keymap.set({ "n", "v" }, "<leader>crm", jdtls.extract_method, opts)
         end,
     }
     require("jdtls").start_or_attach(config)
