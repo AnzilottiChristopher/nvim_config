@@ -21,6 +21,8 @@ return {
             -- Setup Mason first
             require("mason").setup()
 
+            vim.lsp.enable("jdtls", false)
+
             -- Auto-enable inlay hints when lsp attaches
             vim.api.nvim_create_autocmd("LspAttach", {
                 callback = function(args)
