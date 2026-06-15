@@ -1,8 +1,14 @@
 return {
     "mfussenegger/nvim-lint",
     config = function()
-        local lint = require("lint")
+        -- tell neovim what .sea files are
+        vim.filetype.add({
+            extension = {
+                sea = "sea",
+            }
+        })
 
+        local lint = require("lint")
         -- register lighthouse as a custom linter
         lint.linters.lighthouse = {
             cmd = "lighthouse",
@@ -20,13 +26,11 @@ return {
                 }
             )
         }
-
         -- run lighthouse on both C and Sea files
         lint.linters_by_ft = {
             c   = { "lighthouse" },
             sea = { "lighthouse" },
         }
-
         -- run on save
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
             callback = function()
