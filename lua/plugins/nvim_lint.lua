@@ -3,9 +3,9 @@ return {
     config = function()
         local lint = require("lint")
 
-        -- register sea as a custom linter
-        lint.linters.sea = {
-            cmd = "sea",
+        -- register lighthouse as a custom linter
+        lint.linters.lighthouse = {
+            cmd = "lighthouse",
             stdin = false,
             args = {},
             stream = "stdout",
@@ -21,9 +21,10 @@ return {
             )
         }
 
-        -- run sea on C files
+        -- run lighthouse on both C and Sea files
         lint.linters_by_ft = {
-            c = { "sea" }
+            c   = { "lighthouse" },
+            sea = { "lighthouse" },
         }
 
         -- run on save
