@@ -4,20 +4,17 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-        -- detect WSL
         local is_wsl = vim.fn.has('wsl') == 1
         local tree_sitter_sea_path = is_wsl
             and "/mnt/c/Users/anzil/dev/rust_projects/tree-sitter-sea"
             or "C:/Users/anzil/dev/rust_projects/tree-sitter-sea"
 
-        -- register .sea filetype
         vim.filetype.add({
             extension = {
                 sea = "sea",
             }
         })
 
-        -- add Sea parser via TSUpdate autocommand — new API
         vim.api.nvim_create_autocmd('User', {
             pattern = 'TSUpdate',
             callback = function()
@@ -30,6 +27,14 @@ return {
                     },
                     filetype = "sea",
                 }
+            end,
+        })
+
+        -- auto-enable highlighting for sea files
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "sea",
+            callback = function()
+                vim.treesitter.start()
             end,
         })
 
