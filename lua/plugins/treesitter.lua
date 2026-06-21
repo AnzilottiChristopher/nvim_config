@@ -35,7 +35,8 @@ return {
             pattern = "sea",
             callback = function()
                 vim.treesitter.start()
-                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                vim.bo.cindent = true -- add this
+                vim.bo.indentexpr = "" -- add this
             end,
         })
 
