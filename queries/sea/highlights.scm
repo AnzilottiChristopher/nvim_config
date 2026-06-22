@@ -1,36 +1,10 @@
-; Keywords
-"class" @keyword
-"interface" @keyword
-"inherit" @keyword
-"implements" @keyword
-"pub" @keyword
-"new" @keyword
-"drop" @keyword
-"import" @keyword
-"from" @keyword
-"return" @keyword
-"if" @keyword
-"else" @keyword
-"while" @keyword
-"for" @keyword
-"switch" @keyword
-"case" @keyword
-"break" @keyword
-"continue" @keyword
-"void" @keyword
-
 ; this — like self in Rust
 (this_expression) @variable.builtin
 
 ; method calls
-; method calls
 (call_expression
   function: (field_expression
     field: (field_identifier) @function.method.call))
-; Concurrency keywords (planned)
-;"ship" @keyword
-;"async" @keyword
-;"await" @keyword
 
 ; Types
 (base_type) @type
@@ -46,15 +20,6 @@
 (function_definition
   declarator: (function_declarator
     declarator: (identifier) @function))
-
-(sea_style_method
-  name: (identifier) @function.method)
-
-(c_style_method
-  name: (identifier) @function.method)
-
-(constructor_declaration
-  name: (identifier) @function.method)
 
 ; Import path
 (import_declaration
@@ -93,3 +58,34 @@
 ">" @operator
 "<=" @operator
 ">=" @operator
+
+; Keywords — after identifiers so they take priority
+"class" @keyword
+"interface" @keyword
+"inherit" @keyword
+"implements" @keyword
+"pub" @keyword
+"new" @keyword
+"drop" @keyword
+"import" @keyword
+"from" @keyword
+"return" @keyword
+"if" @keyword
+"else" @keyword
+"while" @keyword
+"for" @keyword
+"switch" @keyword
+"case" @keyword
+"break" @keyword
+"continue" @keyword
+"void" @keyword
+
+; Methods — after identifiers so @function.method overrides @variable
+(sea_style_method
+  name: (identifier) @function.method)
+
+(c_style_method
+  name: (identifier) @function.method)
+
+; init constructor — after identifiers
+"init" @function.method
