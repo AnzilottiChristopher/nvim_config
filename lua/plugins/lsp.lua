@@ -8,6 +8,24 @@ return {
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
+            -- register sea_lsp before anything else
+            local configs = require('lspconfig.configs')
+            if not configs.sea_lsp then
+                configs.sea_lsp = {
+                    default_config = {
+                        cmd = { 'sea_lsp' },
+                        filetypes = { 'sea' },
+                        root_dir = function(fname)
+                            return require('lspconfig.util').root_pattern('sea.toml')(fname)
+                                or require('lspconfig.util').find_git_ancestor(fname)
+                                or vim.fn.getcwd()
+                        end,
+                        settings = {},
+                    },
+                }
+            end
+            require('lspconfig').sea_lsp.setup({})
+
             -- Docker Compose filetype detection
             vim.filetype.add({
                 filename = {
