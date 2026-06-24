@@ -8,14 +8,18 @@ return {
         "hrsh7th/cmp-path",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        "onsails/lspkind.nvim", -- Add icons
+        "onsails/lspkind.nvim",
     },
     config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
         local lspkind = require("lspkind")
-
         cmp.setup({
+            completion = {
+                autocomplete = {
+                    require('cmp.types').cmp.TriggerEvent.TextChanged,
+                },
+            },
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -65,14 +69,15 @@ return {
                 end, { 'i', 's' }),
             }),
             sources = cmp.config.sources({
-                { name = 'nvim_lsp', keyword_length = 1, max_item_count = 20 },
+                {
+                    name = 'nvim_lsp',
+                    keyword_length = 0,
+                    max_item_count = 20,
+                },
                 { name = 'luasnip' },
                 { name = 'buffer' },
                 { name = 'path' },
             }),
-            -- experimental = {
-            --  ghost_text = true,
-            --},
         })
     end,
 }
