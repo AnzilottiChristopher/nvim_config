@@ -15,28 +15,27 @@ return {
             }
         })
 
-        vim.api.nvim_create_autocmd('User', {
-            pattern = 'TSUpdate',
-            callback = function()
-                require('nvim-treesitter.parsers').sea = {
-                    install_info = {
-                        url = tree_sitter_sea_path,
-                        files = { "src/parser.c" },
-                        generate_requires_npm = false,
-                        requires_generate_from_grammar = false,
-                    },
-                    filetype = "sea",
-                }
-            end,
-        })
+        -- register immediately, not inside a TSUpdate autocmd
+        require('nvim-treesitter.parsers').get_parser_configs().sea = {
+            install_info = {
+                url = tree_sitter_sea_path,
+                files = { "src/parser.c" },
+                generate_requires_npm = false,
+                requires_generate_from_grammar = false,
+            },
+            filetype = "sea",
+        }
 
         -- auto-enable highlighting and indentation for sea files
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "sea",
             callback = function()
-                vim.treesitter.start()
-                vim.bo.cindent = true  -- add this
-                vim.bo.indentexpr = "" -- add this
+                local ok = pcall(vim.treesitter.start)
+                if not ok then
+                    -- parser not installed/compiled yet, skip silently
+                end
+                vim.bo.cindent = true
+                vim.bo.indentexpr = ""
             end,
         })
 
