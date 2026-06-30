@@ -6,7 +6,7 @@ return {
     config = function()
         local is_wsl = vim.fn.has('wsl') == 1
         local tree_sitter_sea_path = is_wsl
-            and "/mnt/c/Users/anzil/dev/rust_projects/tree-sitter-sea"
+            and "/home/chris/dev_linux/rust_projects/tree-sitter-sea"
             or "C:/Users/anzil/dev/rust_projects/tree-sitter-sea"
 
         vim.filetype.add({
@@ -35,7 +35,7 @@ return {
             pattern = "sea",
             callback = function()
                 vim.treesitter.start()
-                vim.bo.cindent = true -- add this
+                vim.bo.cindent = true  -- add this
                 vim.bo.indentexpr = "" -- add this
             end,
         })
