@@ -73,6 +73,7 @@
 "break" @keyword
 "continue" @keyword
 "void" @keyword
+"static" @keyword
 ; Methods — after identifiers so @function.method overrides @variable
 (sea_style_method
   name: (identifier) @function.method)
