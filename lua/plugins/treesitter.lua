@@ -4,39 +4,26 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-        local is_wsl = vim.fn.has('wsl') == 1
-        local tree_sitter_sea_path = is_wsl
-            and "/home/chris/dev_linux/rust_projects/tree-sitter-sea"
-            or "C:/Users/anzil/dev/rust_projects/tree-sitter-sea"
-
         vim.filetype.add({
             extension = {
                 sea = "sea",
             }
         })
 
-        vim.api.nvim_create_autocmd('User', {
-            pattern = 'TSUpdate',
-            callback = function()
-                require('nvim-treesitter.parsers').sea = {
-                    install_info = {
-                        url = tree_sitter_sea_path,
-                        files = { "src/parser.c" },
-                        generate_requires_npm = false,
-                        requires_generate_from_grammar = false,
-                    },
-                    filetype = "sea",
-                }
-            end,
-        })
+        -- tells Neovim's core treesitter that filetype "sea" maps to
+        -- a parser/language also named "sea" (the manually-compiled .so)
+        vim.treesitter.language.register("sea", "sea")
 
         -- auto-enable highlighting and indentation for sea files
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "sea",
             callback = function()
-                vim.treesitter.start()
-                vim.bo.cindent = true  -- add this
-                vim.bo.indentexpr = "" -- add this
+                local ok = pcall(vim.treesitter.start)
+                if not ok then
+                    -- parser not installed/compiled yet, skip silently
+                end
+                vim.bo.cindent = true
+                vim.bo.indentexpr = ""
             end,
         })
 
